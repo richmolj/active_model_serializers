@@ -50,7 +50,7 @@ module ActiveModelSerializers
             },
             relationships: {
               post: { data: { type: 'posts', id: '1' } },
-              author: { data: nil }
+              author: { data: { meta: {} } }
             }
           }, {
             id: '2',
@@ -60,7 +60,7 @@ module ActiveModelSerializers
             },
             relationships: {
               post: { data: { type: 'posts', id: '1' } },
-              author: { data: nil }
+              author: { data: { meta: {} } }
             }
           }]
           assert_equal expected, @adapter.serializable_hash[:included]
@@ -73,14 +73,14 @@ module ActiveModelSerializers
             type: 'comments',
             relationships: {
               post: { data: { type: 'posts', id: '1' } },
-              author: { data: nil }
+              author: { data: { meta: {} } }
             }
           }, {
             id: '2',
             type: 'comments',
             relationships: {
               post: { data: { type: 'posts', id: '1' } },
-              author: { data: nil }
+              author: { data: { meta: {} } }
             }
           }]
           assert_equal expected, @adapter.serializable_hash[:included]

@@ -23,13 +23,13 @@ module ActiveModelSerializers
 
         def test_relationship_with_nil_model
           @serializer = BlogSerializer.new(nil)
-          expected = { data: nil }
+          expected = { data: { meta: {} } }
           test_relationship(expected, options: { include_data: true })
         end
 
         def test_relationship_with_nil_serializer
           @serializer = nil
-          expected = { data: nil }
+          expected = { data: { meta: {} } }
           test_relationship(expected, options: { include_data: true })
         end
 

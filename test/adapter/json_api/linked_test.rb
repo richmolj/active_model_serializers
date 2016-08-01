@@ -92,7 +92,7 @@ module ActiveModelSerializers
                 },
                 relationships: {
                   post: { data: { type: 'posts', id: '10' } },
-                  author: { data: nil }
+                  author: { data: { meta: {} } }
                 }
               }, {
                 id: '2',
@@ -102,7 +102,7 @@ module ActiveModelSerializers
                 },
                 relationships: {
                   post: { data: { type: 'posts', id: '10' } },
-                  author: { data: nil }
+                  author: { data: { meta: {} } }
                 }
               }, {
                 id: '1',
@@ -274,7 +274,7 @@ module ActiveModelSerializers
               },
               relationships: {
                 comments: { data: [{ type: 'comments', id: '1' }, { type: 'comments', id: '2' }] },
-                author: { data: nil }
+                author: { data: { meta: {} } }
               }
             }
           }

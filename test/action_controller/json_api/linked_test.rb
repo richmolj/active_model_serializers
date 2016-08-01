@@ -119,7 +119,7 @@ module ActionController
               'relationships' => {
                 'posts' => { 'data' => [] },
                 'roles' => { 'data' => [{ 'type' => 'roles', 'id' => '1' }, { 'type' => 'roles', 'id' => '2' }] },
-                'bio' => { 'data' => nil }
+                'bio' => { 'data' => { 'meta' => {} } }
               }
             }, {
               'id' => '1',

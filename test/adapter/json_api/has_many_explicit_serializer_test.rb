@@ -78,7 +78,7 @@ module ActiveModelSerializers
         def test_explicit_serializer_with_null_resource
           @post.author = nil
 
-          expected = { data: nil }
+          expected = { data: { meta: {} } }
 
           assert_equal(expected, @adapter.serializable_hash[:data][:relationships][:author])
         end

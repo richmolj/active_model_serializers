@@ -75,7 +75,7 @@ module ActiveModelSerializers
           serializer = PostSerializer.new(@anonymous_post)
           adapter = ActiveModelSerializers::Adapter::JsonApi.new(serializer)
 
-          assert_equal({ comments: { data: [] }, blog: { data: { type: 'blogs', id: '999' } }, author: { data: nil } }, adapter.serializable_hash[:data][:relationships])
+          assert_equal({ comments: { data: [] }, blog: { data: { type: 'blogs', id: '999' } }, author: { data: { meta: {} } } }, adapter.serializable_hash[:data][:relationships])
         end
 
         def test_include_type_for_association_when_different_than_name
@@ -119,7 +119,7 @@ module ActiveModelSerializers
               relationships: {
                 posts: { data: [] },
                 roles: { data: [] },
-                bio: { data: nil }
+                bio: { data: { meta: {} } }
               }
             }, {
               id: '42',
@@ -143,7 +143,7 @@ module ActiveModelSerializers
               relationships: {
                 comments: { data: [] },
                 blog: { data: { type: 'blogs', id: '999' } },
-                author: { data: nil }
+                author: { data: { meta: {} } }
               }
             }
           ]
