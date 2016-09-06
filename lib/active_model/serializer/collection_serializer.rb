@@ -52,6 +52,8 @@ module ActiveModel
       # rubocop:enable Metrics/CyclomaticComplexity
 
       def paginated?
+        return false unless Serializer.config.jsonapi_pagination_links_enabled
+
         object.respond_to?(:current_page) &&
           object.respond_to?(:total_pages) &&
           object.respond_to?(:size)
