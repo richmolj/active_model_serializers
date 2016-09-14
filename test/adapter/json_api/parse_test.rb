@@ -63,6 +63,14 @@ module ActiveModelSerializers
             assert_equal(@expected, parsed_hash)
           end
 
+          # See http://jsonapi.org/format/#crud-updating-to-many-relationships
+          def test_data_as_array
+            hash = { 'data' => [{ 'type' => 'tags', 'id' => '1' }] }
+            parsed_hash = ActiveModelSerializers::Adapter::JsonApi::Deserialization.parse!(hash)
+            puts parsed_hash.inspect
+            assert_equal([{ id: '1' }], parsed_hash)
+          end
+
           def test_actioncontroller_parameters
             assert_equal(false, @params.permitted?)
             parsed_hash = ActiveModelSerializers::Adapter::JsonApi::Deserialization.parse!(@params)
