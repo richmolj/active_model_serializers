@@ -41,6 +41,9 @@ group :bench do
   gem 'benchmark-ips', require: false, group: :development
 end
 
+gem 'jsonapi', path: '../jsonapi'
+gem 'jsonapi-serializable', path: '../jsonapi-serializable'
+
 group :test do
   gem 'sqlite3',                          platform: (@windows_platforms + [:ruby])
   gem 'activerecord-jdbcsqlite3-adapter', platform: :jruby
