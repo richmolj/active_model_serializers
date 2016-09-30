@@ -1,6 +1,9 @@
 require_relative './benchmarking_support'
 require_relative './app'
 
+require 'jsonapi/renderer'
+require 'jsonapi/serializable'
+
 time = 10
 disable_gc = true
 ActiveModelSerializers.config.key_transform = :unaltered
@@ -28,8 +31,8 @@ Benchmark.ams('attributes', time: time, disable_gc: disable_gc) do
 end
 
 Benchmark.ams('json_api', time: time, disable_gc: disable_gc) do
-  json_api = ActiveModelSerializers::Adapter::JsonApi.new(serializer)
-  json_api.as_json
+  JSONAPI.render serializer,
+    include: 'virtual_attribute,has_many_relationships,has_one_relationship'
 end
 
 Benchmark.ams('json', time: time, disable_gc: disable_gc) do

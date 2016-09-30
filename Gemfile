@@ -50,6 +50,9 @@ group :test do
   gem 'pry-byebug', '~> 3.4', platform: :ruby
 end
 
+gem 'jsonapi', path: '../jsonapi'
+gem 'jsonapi-serializable', path: '../jsonapi-serializable'
+
 group :development, :test do
   gem 'rubocop', '~> 0.40.0', require: false
   gem 'yard', require: false

@@ -11,6 +11,7 @@ require 'active_model/serializer/concerns/configuration'
 require 'active_model/serializer/concerns/links'
 require 'active_model/serializer/concerns/meta'
 require 'active_model/serializer/concerns/type'
+require 'active_model/serializer/concerns/json_api_resource'
 require 'active_model/serializer/fieldset'
 require 'active_model/serializer/lint'
 
@@ -30,6 +31,7 @@ module ActiveModel
     include Links
     include Meta
     include Type
+    include JsonApiResource
 
     # @param resource [ActiveRecord::Base, ActiveModelSerializers::Model]
     # @return [ActiveModel::Serializer]
@@ -163,12 +165,17 @@ module ActiveModel
     #     # Second level and higher order associations work as well:
     #     serializer.as_json(include: { posts: { include: { comments: { only: :body } }, only: :title } })
     def serializable_hash(adapter_options = nil, options = {}, adapter_instance = self.class.serialization_adapter_instance)
-      adapter_options ||= {}
-      options[:include_directive] ||= ActiveModel::Serializer.include_directive_from_options(adapter_options)
-      cached_attributes = adapter_options[:cached_attributes] ||= {}
-      resource = fetch_attributes(options[:fields], cached_attributes, adapter_instance)
-      relationships = resource_relationships(adapter_options, options, adapter_instance)
-      resource.merge(relationships)
+      if adapter_instance.is_a?(ActiveModelSerializers::Adapter::JsonApi)
+        options = options.merge(adapter_options) if adapter_options
+        JSONAPI.render(self, options)
+      else
+        adapter_options ||= {}
+        options[:include_directive] ||= ActiveModel::Serializer.include_directive_from_options(adapter_options)
+        cached_attributes = adapter_options[:cached_attributes] ||= {}
+        resource = fetch_attributes(options[:fields], cached_attributes, adapter_instance)
+        relationships = resource_relationships(adapter_options, options, adapter_instance)
+        resource.merge(relationships)
+      end
     end
     alias to_hash serializable_hash
     alias to_h serializable_hash
